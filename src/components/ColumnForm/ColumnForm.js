@@ -14,7 +14,6 @@ const ColumnForm = props => {
     dispatch({ type: 'ADD_COLUMN', newColumn: { title, icon } });
     setTitle('');
     setIcon('');
-    console.log("Aaaaa")
   };
 
   return (
