@@ -2,17 +2,11 @@ import styles from './Column.module.scss';
 import Card from "../Card/Card";
 import CardForm from "../CardForm/CardForm";
 import {useSelector} from "react-redux";
+import {getFilteredCards} from "../../redux/store";
 
 const Column = props => {
 
-  const filterCardsForColumnsTakingIntoAccountSearchForm = () => {
-    return state => {
-      const searchedText = state.search.searchText ? state.search.searchText : '';
-      return state.cards.filter(card => card.columnId === props.id && card.title.toLowerCase().includes(searchedText.toLowerCase()));
-    }
-  }
-
-  const cards = useSelector(filterCardsForColumnsTakingIntoAccountSearchForm())
+  const cards = useSelector(state => getFilteredCards(state, props.id));
 
   return (<article className={styles.column}>
     <h2 className={styles.title}><span className={styles.icon + ' fa fa-' + props.icon} />{props.title}</h2>

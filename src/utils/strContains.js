@@ -1,0 +1,1 @@
+export const compareStrings = (card, searchedText) => card.title.toLowerCase().includes(searchedText.toLowerCase());
