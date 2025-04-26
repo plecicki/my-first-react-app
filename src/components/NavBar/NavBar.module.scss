@@ -1,0 +1,32 @@
+@import '../../styles/settings.scss';
+
+.navBar {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  background: $color-darker;
+  height: 50px;
+  margin: 0 70px;
+}
+
+.navIcon {
+  align-content: center;
+  font-size: 24px;
+}
+
+.navOptions {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  width: 200px;
+  font-weight: $font-bold;
+}
+
+.navOption {
+  align-content: center;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
