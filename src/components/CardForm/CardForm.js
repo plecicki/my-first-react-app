@@ -9,9 +9,11 @@ const CardForm = props => {
   const [title, setTitle] = useState('');
   const dispatch = useDispatch();
 
+  const DEFAULT_IS_CARD_FAVORITE = false;
+
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(addCard({ columnId: props.columnId, title }));
+    dispatch(addCard({ columnId: props.columnId, title, isFavorite: DEFAULT_IS_CARD_FAVORITE }));
     setTitle('');
   };
 
