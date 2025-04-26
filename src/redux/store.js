@@ -1,39 +1,43 @@
-import { createStore } from 'redux';
+import {createStore} from 'redux';
 import shortid from 'shortid';
 import initialState from './initialState';
-import { compareStrings } from '../utils/strContains'
+import {compareStrings} from '../utils/strContains'
 
 export const getFilteredCards = ({cards, search}, columnId) => {
   const searchedText = search.searchText ? search.searchText : '';
   return cards.filter(card => card.columnId === columnId && compareStrings(card, searchedText));
 }
 
-export const getAllColumns = ({ columns }) => columns;
+export const getAllColumns = ({columns}) => columns;
 
-export const getColumnsByList = ({ columns }, listId) => {
+export const getColumnsByList = ({columns}, listId) => {
   return columns.filter(column => column.listId === listId);
 }
 
-export const addColumn = payload => ({ type: 'ADD_COLUMN', newColumn: payload });
+export const addList = payload => ({type: 'ADD_LIST', newList: payload});
 
-export const addCard = payload => ({ type: 'ADD_CARD', newCard: payload});
+export const addColumn = payload => ({type: 'ADD_COLUMN', newColumn: payload});
 
-export const searchString = payload => ({ type: 'SEARCH', searchText: payload });
+export const addCard = payload => ({type: 'ADD_CARD', newCard: payload});
 
-export const getSearch = ({ search }) => search;
+export const searchString = payload => ({type: 'SEARCH', searchText: payload});
 
-export const getAllLists = ({ lists }) => lists;
+export const getSearch = ({search}) => search;
 
-export const getListById = ({ lists }, listId) => lists.find(list => list.id === listId);
+export const getAllLists = ({lists}) => lists;
+
+export const getListById = ({lists}, listId) => lists.find(list => list.id === listId);
 
 const reducer = (state, payload) => {
-  switch(payload.type) {
+  switch (payload.type) {
+    case 'ADD_LIST':
+      return {...state, lists: [...state.lists, {...payload.newList, id: shortid()}]};
     case 'ADD_COLUMN':
-      return { ...state, columns: [...state.columns, { ...payload.newColumn, id: shortid() }]};
+      return {...state, columns: [...state.columns, {...payload.newColumn, id: shortid()}]};
     case 'ADD_CARD':
-      return { ...state, cards: [...state.cards, { ...payload.newCard, id: shortid() }]};
+      return {...state, cards: [...state.cards, {...payload.newCard, id: shortid()}]};
     case 'SEARCH':
-      return { ...state, search: payload.searchText}
+      return {...state, search: payload.searchText}
     default:
       return state;
   }
