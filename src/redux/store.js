@@ -20,6 +20,8 @@ export const addCard = payload => ({ type: 'ADD_CARD', newCard: payload});
 
 export const searchString = payload => ({ type: 'SEARCH', searchText: payload });
 
+export const getSearch = ({ search }) => search;
+
 export const getAllLists = ({ lists }) => lists;
 
 export const getListById = ({ lists }, listId) => lists.find(list => list.id === listId);
