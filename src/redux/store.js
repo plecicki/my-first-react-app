@@ -10,11 +10,17 @@ export const getFilteredCards = ({cards, search}, columnId) => {
 
 export const getAllColumns = ({ columns }) => columns;
 
+export const getColumnsByList = ({ columns }, listId) => {
+  return columns.filter(column => column.listId === listId);
+}
+
 export const addColumn = payload => ({ type: 'ADD_COLUMN', newColumn: payload });
 
 export const addCard = payload => ({ type: 'ADD_CARD', newCard: payload});
 
 export const searchString = payload => ({ type: 'SEARCH', searchText: payload });
+
+export const getListById = ({ lists }, listId) => lists.find(list => list.id === listId);
 
 const reducer = (state, payload) => {
   switch(payload.type) {
