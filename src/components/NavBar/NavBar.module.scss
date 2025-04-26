@@ -22,11 +22,12 @@
   font-weight: $font-bold;
 }
 
-.navOption {
-  align-content: center;
-}
-
 a {
   color: inherit;
   text-decoration: none;
+  align-content: center;
+}
+
+.linkActive {
+  color: $color-warning;
 }
