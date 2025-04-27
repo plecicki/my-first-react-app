@@ -15,3 +15,15 @@
 .isActive {
   color: $color-is-favorite;
 }
+
+.icons {
+  color: $color-dark;
+  width: 30px;
+  display: flex;
+  justify-content: space-between;
+  a {
+    &:hover {
+      color: $color-gray;
+    }
+  }
+}

@@ -20,6 +20,8 @@ export const addColumn = payload => ({type: 'ADD_COLUMN', newColumn: payload});
 
 export const addCard = payload => ({type: 'ADD_CARD', newCard: payload});
 
+export const removeCard = payload => ({type: 'REMOVE_CARD', cardId: payload})
+
 export const searchString = payload => ({type: 'SEARCH', searchText: payload});
 
 export const getSearch = ({search}) => search;
@@ -42,6 +44,8 @@ const reducer = (state, payload) => {
       return {...state, columns: [...state.columns, {...payload.newColumn, id: shortid()}]};
     case 'ADD_CARD':
       return {...state, cards: [...state.cards, {...payload.newCard, id: shortid()}]};
+    case 'REMOVE_CARD':
+      return {...state, cards: [...state.cards.filter(card => card.id!==payload.cardId)]};
     case 'TOGGLE_CARD_FAVORITE':
       return { ...state, cards: state.cards.map(card => (card.id === payload.cardId) ? { ...card, isFavorite: !card.isFavorite } : card) };
     case 'SEARCH':
