@@ -34,6 +34,8 @@ export const toggleCardFavoriteStatus = payload => ({type:'TOGGLE_CARD_FAVORITE'
 
 export const getCardById = ({cards}, cardId) => cards.find(card => card.id === cardId);
 
+export const selectIsFavoriteById = (state, cardId) => getCardById(state, cardId)?.isFavorite;
+
 export const getFavoriteCards = ({cards}) => cards.filter(card => card.isFavorite === true);
 
 const listsReducer = (statePart = [], action) => {
