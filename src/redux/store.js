@@ -36,24 +36,57 @@ export const getCardById = ({cards}, cardId) => cards.find(card => card.id === c
 
 export const getFavoriteCards = ({cards}) => cards.filter(card => card.isFavorite === true);
 
-const reducer = (state, payload) => {
-  switch (payload.type) {
+const listsReducer = (statePart = [], action) => {
+  switch(action.type) {
     case 'ADD_LIST':
-      return {...state, lists: [...state.lists, {...payload.newList, id: shortid()}]};
-    case 'ADD_COLUMN':
-      return {...state, columns: [...state.columns, {...payload.newColumn, id: shortid()}]};
-    case 'ADD_CARD':
-      return {...state, cards: [...state.cards, {...payload.newCard, id: shortid()}]};
-    case 'REMOVE_CARD':
-      return {...state, cards: [...state.cards.filter(card => card.id!==payload.cardId)]};
-    case 'TOGGLE_CARD_FAVORITE':
-      return { ...state, cards: state.cards.map(card => (card.id === payload.cardId) ? { ...card, isFavorite: !card.isFavorite } : card) };
-    case 'SEARCH':
-      return {...state, search: payload.searchText}
+      return [...statePart, {...action.newList, id: shortid()}];
     default:
-      return state;
+      return statePart;
   }
-};
+}
+
+const columnsReducer = (statePart = [], action) => {
+  switch(action.type) {
+    case 'ADD_COLUMN':
+      return [...statePart, {...action.newColumn, id: shortid()}];
+    default:
+      return statePart;
+  }
+}
+
+const cardsReducer = (statePart = [], action) => {
+  console.log('statePart', statePart);
+  switch(action.type) {
+    case 'ADD_CARD':
+      return [...statePart, {...action.newCard, id: shortid()}];
+    case 'REMOVE_CARD':
+      return [...statePart.filter(card => card.id!==action.cardId)];
+    case 'TOGGLE_CARD_FAVORITE':
+      return statePart.map(card => (card.id === action.cardId) ? { ...card, isFavorite: !card.isFavorite } : card);
+    default:
+      return statePart;
+  }
+}
+
+const searchStringReducer = (statePart = '', action) => {
+  switch(action.type) {
+    case 'SEARCH':
+      return action.searchText;
+    default:
+      return statePart;
+  }
+}
+
+const reducer = (state, action) => {
+  const newState = {
+    lists: listsReducer(state.lists, action),
+    columns: columnsReducer(state.columns, action),
+    cards: cardsReducer(state.cards, action),
+    search: searchStringReducer(state.search, action)
+  };
+
+  return newState;
+}
 
 const store = createStore(
   reducer,
