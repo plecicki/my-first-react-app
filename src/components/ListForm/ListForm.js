@@ -17,12 +17,15 @@ const ListForm = props => {
     setDescription('');
   };
 
+  const TITLE_FIELD_NAME = 'title';
+  const DESCRIPTION_FIELD_NAME = 'description';
+
   return (
     <form onSubmit={handleSubmit} className={styles.listForm}>
-      <label>Title:</label>
-      <TextInput value={title} onChange={e => setTitle(e.target.value)} />
-      <label>Description:</label>
-      <TextInput value={description} onChange={e => setDescription(e.target.value)} />
+      <label htmlFor={TITLE_FIELD_NAME}>Title:</label>
+      <TextInput value={title} onChange={e => setTitle(e.target.value)} id={TITLE_FIELD_NAME} />
+      <label htmlFor={DESCRIPTION_FIELD_NAME}>Description:</label>
+      <TextInput value={description} onChange={e => setDescription(e.target.value)} id={DESCRIPTION_FIELD_NAME} />
       <Button type="submit">Add List</Button>
     </form>
   );
